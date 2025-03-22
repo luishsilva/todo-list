@@ -1,5 +1,5 @@
 /** Protocol to talk to the service with */
-export const SERVICE_PROTOCOL = "http"
+export const SERVICE_PROTOCOL = "http";
 
 /** Host the service is listening on */
 export const SERVICE_HOST = `${SERVICE_PROTOCOL}://localhost`;
