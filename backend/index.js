@@ -50,14 +50,26 @@ app.put("/api/:id", async (request, response) => {
       return response.status(404).json({ error: "Todo not found" });
     }
 
-    res.json(updatedTodo);
+    response.json(updatedTodo);
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    response.status(500).json({ error: err.message });
   }
 });
 
-app.delete("/api/:id", async(request, response) => {
-    
+app.delete("/api/:id", async (request, response) => {
+  try {
+    const deleteTodo = await TodoModel.findOneAndDelete({
+      id: request.params.id,
+    });
+
+    if (!deleteTodo) {
+      return response.status(404).json({ error: "Todo not found" });
+    }
+
+    response.json({ message: "Todo deleted successfully", deleteTodo });
+  } catch (error) {
+    response.status(500).json({ error: error.message });
+  }
 });
 
 app.listen(3001, () => {

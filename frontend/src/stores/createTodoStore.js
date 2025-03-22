@@ -63,12 +63,12 @@ export default function createTodoStore() {
     }),
 
     /** Remove a TODO item and ask the server to delete it */
-    async delete(id) {
+    delete: action(async function (id) {
       self.items = self.items.filter((i) => i.id !== id);
 
       // Also delete the item from the backend
       await deleteItem(id);
-    },
+    }),
   });
 
   // When it first loads, fetch all existing items.
