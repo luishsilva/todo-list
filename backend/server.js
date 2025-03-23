@@ -1,22 +1,15 @@
 require("dotenv").config();
 const express = require("express");
-const mongoose = require("mongoose");
 const cors = require("cors");
 const todosRoutes = require("./routes/todoRoutes");
-// const TodoModel = require("./models/Todo");
+
+const connectDB = require("./db");
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-mongoose
-  .connect(process.env.MONGODB_URI)
-  .then(() => {
-    console.log("Connected to MongoDB successfully");
-  })
-  .catch((err) => {
-    console.error("Failed to connect to MongoDB:", err);
-  });
+connectDB();
 
 app.use("/api", todosRoutes);
 

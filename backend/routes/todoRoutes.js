@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const { validateTodo } = require("../validators/todoValidators");
 
 const TodoModel = require("../models/Todo");
 
@@ -13,6 +14,10 @@ router.get("/", async (request, response) => {
 });
 
 router.post("/", async (request, response) => {
+  const { error } = validateTodo(request.body);
+  if (error)
+    return response.status(400).json({ error: error.details[0].message });
+
   try {
     const newTodo = new TodoModel(request.body);
     await newTodo.save();
@@ -23,6 +28,10 @@ router.post("/", async (request, response) => {
 });
 
 router.put("/:id", async (request, response) => {
+  const { error } = validateTodo(request.body);
+  if (error)
+    return response.status(400).json({ error: error.details[0].message });
+
   try {
     const updatedTodo = await TodoModel.findOneAndUpdate(
       { id: request.params.id },
