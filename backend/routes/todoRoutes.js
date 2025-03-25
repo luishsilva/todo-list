@@ -28,7 +28,8 @@ router.post("/", async (request, response) => {
 });
 
 router.put("/:id", async (request, response) => {
-  const { error } = validateTodo(request.body);
+  const { _id, ...todoData } = request.body;
+  const { error } = validateTodo(todoData);
   if (error)
     return response.status(400).json({ error: error.details[0].message });
 
@@ -36,8 +37,8 @@ router.put("/:id", async (request, response) => {
     const updatedTodo = await TodoModel.findOneAndUpdate(
       { id: request.params.id },
       {
-        name: request.body.name,
-        isComplete: request.body.isComplete,
+        name: todoData.name,
+        isComplete: todoData.isComplete,
       },
       { new: true }
     );
