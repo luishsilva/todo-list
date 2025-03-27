@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest --runInBand && npm run test:cleanup",
+    "test:cleanup": "node tests/testdb-cleanup.js",
     "start": "nodemon server.js"
   },
   "keywords": [],
@@ -12,9 +13,18 @@
   "description": "",
   "dependencies": {
     "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "joi": "^17.13.3",
     "mongoose": "^8.12.1",
     "nodemon": "^3.1.9"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "jest-watch-typeahead": "^2.2.2",
+    "mongodb": "^6.15.0",
+    "mongodb-memory-server": "^10.1.4",
+    "supertest": "^7.1.0",
+    "uuid": "^11.1.0"
   }
 }

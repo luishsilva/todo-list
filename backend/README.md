@@ -24,3 +24,7 @@ Running the Service
 The server will run on port 3001. You should see:
     Server is running on port 3001
     Connected to MongoDB successfully
+
+Tests
+    npm install --save-dev jest supertest mongodb uuid dotenv
+    
